@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using WMPLib;
 
+
 namespace soundboard
 {
     /// <summary>
@@ -29,8 +30,8 @@ namespace soundboard
         List<Button> buttons = new List<Button>();
         bool playing = false;
         string folder = "mp3-files";
-
         bool changes = true;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -54,8 +55,15 @@ namespace soundboard
             changes = true;
         }
 
-        private void ReloadSongs(object? sender, EventArgs e)
+        private void ReloadSongs(object? sender, EventArgs? e)
         {
+            if(player.playState == WMPPlayState.wmppsStopped && selectedSong != -1)
+            {
+                buttons[selectedSong].Background = Brushes.White;
+                ButtonStop.Content = "▶️";
+                playing = false;
+                selectedSong = -1;
+            }
             if (!changes)
             {
                 return;
@@ -85,7 +93,7 @@ namespace soundboard
                 button.Width = 150;
                 button.Height = 60;
                 button.Background = Brushes.White;
-                button.Content = song.Split(@"\")[1].Split(".")[0];
+                button.Content = song.Split(".mp3")[0].Split(@"\")[^1];
                 button.Click += Button_Click;
                 CanvasMain.Children.Add(button);
                 Canvas.SetLeft(button, (counter * 180) + 20);
@@ -102,6 +110,8 @@ namespace soundboard
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            if (selectedSong != -1)
+                buttons[selectedSong].Background = Brushes.White;
             Button button = (Button)sender;
             int counter = 0;
             int button_number = -1;
@@ -158,7 +168,55 @@ namespace soundboard
             if (folderDialog.ShowDialog() == true)
             {
                 folder = folderDialog.FolderName;
+                changes = true;
+                ReloadSongs(null, null);
             }
+        }
+
+        private void ButtonReload_Click(object sender, RoutedEventArgs e)
+        {
+            changes = true;
+            ReloadSongs(null, null);
+        }
+
+        private void ButtonFront_Click(object sender, RoutedEventArgs e)
+        {
+            if (selectedSong == (songs.Count - 1) || selectedSong == -1)
+                return;
+            buttons[selectedSong].Background = Brushes.White;
+            player.controls.stop();
+            player.URL = songs[selectedSong + 1];
+            player.controls.play();
+            buttons[selectedSong + 1].Background = Brushes.Coral;
+            selectedSong++;
+        }
+
+        private void ButtonBack_Click(object sender, RoutedEventArgs e)
+        {
+            if (selectedSong == 0 || selectedSong == -1)
+                return;
+            buttons[selectedSong].Background = Brushes.White;
+            player.controls.stop();
+            player.URL = songs[selectedSong - 1];
+            player.controls.play();
+            buttons[selectedSong - 1].Background = Brushes.Coral;
+            selectedSong--;
+        }
+
+        private void LabelInfo_MouseEnter(object sender, MouseEventArgs e)
+        {
+            LabelInfo.Foreground = Brushes.White;
+        }
+
+        private void LabelInfo_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Info info = new Info();
+            info.Show();
+        }
+
+        private void LabelInfo_MouseLeave(object sender, MouseEventArgs e)
+        {
+            LabelInfo.Foreground = Brushes.Black;
         }
     }
 }
