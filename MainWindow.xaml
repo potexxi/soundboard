@@ -5,8 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:soundboard"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Soundboard" Height="450" Width="800">
     <Grid>
-
+        <StackPanel>
+            <StackPanel>
+                <StackPanel>
+                    <Label FontSize="45" Content="Label" HorizontalContentAlignment="Center" Width="800" FontFamily="Bahnschrift Condensed"/>
+                </StackPanel>
+                <StackPanel x:Name="StackPanelMenu" Orientation="Horizontal">
+                    <Button Content="Button"/>
+                    <Button Content="Button"/>
+                </StackPanel>
+            </StackPanel>
+            <Canvas x:Name="CanvasMain" Width="800" Height="350"/>
+        </StackPanel>
     </Grid>
 </Window>
