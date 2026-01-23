@@ -5,19 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:soundboard"
         mc:Ignorable="d"
-        Title="Soundboard" Height="450" Width="800">
-    <Grid>
+        Title="Soundboard" Height="570" Width="800" ResizeMode="NoResize">
+    <Grid Background="#FF8BA5B8">
         <StackPanel>
-            <StackPanel>
-                <StackPanel>
-                    <Label FontSize="45" Content="Label" HorizontalContentAlignment="Center" Width="800" FontFamily="Bahnschrift Condensed"/>
-                </StackPanel>
-                <StackPanel x:Name="StackPanelMenu" Orientation="Horizontal">
-                    <Button Content="Button"/>
-                    <Button Content="Button"/>
-                </StackPanel>
+            <StackPanel Background="#FF2470FF" Height="100" Orientation="Horizontal">
+                <Label Content="made by Max" FontSize="10" Width="55" FontFamily="Bahnschrift Condensed"/>
+                <Label x:Name="LabelHeading" FontSize="45" Height="100" VerticalContentAlignment="Center" Content="Soundboard" HorizontalContentAlignment="Center" Width="690" FontFamily="Bahnschrift Condensed"/>
             </StackPanel>
-            <Canvas x:Name="CanvasMain" Width="800" Height="350"/>
+            
+            <ScrollViewer Margin="0,20,0,0" x:Name="ScrollViewer" VerticalScrollBarVisibility="Visible" Width="786" Height="348">
+                <Canvas Background="#FF2470FF" x:Name="CanvasMain" Width="800"/>
+            </ScrollViewer>
+            <StackPanel x:Name="StackPanelMenu" Orientation="Horizontal">
+                <Button x:Name="ButtonSelect" Background="#FF2470FF" Content="Select File-Folder" Click="ButtonSelect_Click" Width="100" Height="25" Margin="5,10,0,0"/>
+                <Button x:Name="ButtonBack" Content="◁" Width="50" Background="#FF2470FF" Height="50" FontSize="20" Margin="210,10,0,0"/>
+                <Button x:Name="ButtonStop" Content="▶️" Click="ButtonStop_Click" Background="#FF2470FF" FontSize="30" Width="50" Height="50" Margin="5,10,0,0"/>
+                <Button x:Name="ButtonFront" Content="▷" Width="50" Height="50" Background="#FF2470FF" FontSize="20" Margin="5,10,0,0"/>
+                
+            </StackPanel>
+
         </StackPanel>
     </Grid>
 </Window>
