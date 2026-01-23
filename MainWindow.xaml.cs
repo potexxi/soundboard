@@ -23,40 +23,59 @@ namespace soundboard
     public partial class MainWindow : Window
     {
         WindowsMediaPlayer player = new WindowsMediaPlayer();
-        private DispatcherTimer TimerSearchSongs = new DispatcherTimer();
+        private DispatcherTimer timer = new DispatcherTimer();
         int selectedSong = -1;
         List<string> songs = new List<string>();
         List<Button> buttons = new List<Button>();
         bool playing = false;
         string folder = "mp3-files";
+
+        bool changes = true;
         public MainWindow()
         {
             InitializeComponent();
-            ReloadSongs();
-            TimerSearchSongs.Tick += TimerSearchSongs_Tick;
-            TimerSearchSongs.Interval = TimeSpan.FromSeconds(1);
-            TimerSearchSongs.Start();
+            timer.Interval = TimeSpan.FromMilliseconds(500);
+            timer.Tick += ReloadSongs;
+            timer.Start();
+            FileSystemWatcher watcher = new FileSystemWatcher(folder);
+
+            watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite;
+            watcher.Filter = "*.mp3";
+            watcher.Created += Watcher_Changed;
+            watcher.Changed += Watcher_Changed;
+            watcher.Deleted += Watcher_Changed;
+            watcher.Renamed += Watcher_Changed;
+
+            watcher.EnableRaisingEvents = true;
         }
 
-        private void TimerSearchSongs_Tick(object? sender, EventArgs e)
+        private void Watcher_Changed(object sender, FileSystemEventArgs e)
         {
-            ReloadSongs();
+            changes = true;
         }
 
-        private void ReloadSongs()
+        private void ReloadSongs(object? sender, EventArgs e)
         {
+            if (!changes)
+            {
+                return;
+            }
             string[] songsArray = Directory.GetFiles(folder, "*.mp3");
             songs.Clear();
             foreach (string s in songsArray)
             {
                 songs.Add(s);
             }
-            //CanvasMain.Children.Clear();
+            try
+            {
+                CanvasMain.Children.Clear();
+            }
+            catch { }
             buttons.Clear();
             int row = 0;
             int counter = 0;
             foreach (string song in songs)
-            {   
+            {
                 if (counter == 4)
                 {
                     row++;
@@ -77,6 +96,7 @@ namespace soundboard
             if (selectedSong != -1)
                 buttons[selectedSong].Background = Brushes.Coral;
             CanvasMain.Height = Math.Ceiling(songs.Count / 4.0) * 100;
+            changes = false;
 
         }
 

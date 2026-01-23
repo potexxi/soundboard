@@ -9,11 +9,11 @@
     <Grid Background="#FF8BA5B8">
         <StackPanel>
             <StackPanel Background="#FF2470FF" Height="100" Orientation="Horizontal">
-                <Label Content="made by Max" FontSize="10" Width="55" FontFamily="Bahnschrift Condensed"/>
+                <Label Content="made by" FontSize="10" Width="55" FontFamily="Bahnschrift Condensed"/>
                 <Label x:Name="LabelHeading" FontSize="45" Height="100" VerticalContentAlignment="Center" Content="Soundboard" HorizontalContentAlignment="Center" Width="690" FontFamily="Bahnschrift Condensed"/>
             </StackPanel>
             
-            <ScrollViewer Margin="0,20,0,0" x:Name="ScrollViewer" VerticalScrollBarVisibility="Visible" Width="786" Height="348">
+            <ScrollViewer Margin="0,20,0,0" x:Name="ScrollViewer" VerticalScrollBarVisibility="Visible" Width="786" MinHeight="340" Height="348">
                 <Canvas Background="#FF2470FF" x:Name="CanvasMain" Width="800"/>
             </ScrollViewer>
             <StackPanel x:Name="StackPanelMenu" Orientation="Horizontal">
