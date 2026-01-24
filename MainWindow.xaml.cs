@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using System.IO;
 using System.Text;
@@ -29,7 +30,10 @@ namespace soundboard
         List<string> songs = new List<string>();
         List<Button> buttons = new List<Button>();
         bool playing = false;
-        string folder = "mp3-files";
+        string folder = System.IO.Path.Combine(
+            AppContext.BaseDirectory,
+            "mp3-files"
+        );
         bool changes = true;
 
         public MainWindow()
@@ -183,6 +187,8 @@ namespace soundboard
         {
             if (selectedSong == (songs.Count - 1) || selectedSong == -1)
                 return;
+            playing = true;
+            ButtonStop.Content = "||";
             buttons[selectedSong].Background = Brushes.White;
             player.controls.stop();
             player.URL = songs[selectedSong + 1];
@@ -195,10 +201,12 @@ namespace soundboard
         {
             if (selectedSong == 0 || selectedSong == -1)
                 return;
+            playing = true;
             buttons[selectedSong].Background = Brushes.White;
             player.controls.stop();
             player.URL = songs[selectedSong - 1];
             player.controls.play();
+            ButtonStop.Content = "||";
             buttons[selectedSong - 1].Background = Brushes.Coral;
             selectedSong--;
         }
@@ -211,12 +219,30 @@ namespace soundboard
         private void LabelInfo_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             Info info = new Info();
+            info.Owner = this;
+            info.SetFolder(folder);
             info.Show();
+            this.Hide();
+            info.Closed += Info_Closed;
+        }
+
+        private void Info_Closed(object? sender, EventArgs e)
+        {
+            this.Show();
         }
 
         private void LabelInfo_MouseLeave(object sender, MouseEventArgs e)
         {
             LabelInfo.Foreground = Brushes.Black;
+        }
+
+        private void ButtonOpen_Click(object sender, RoutedEventArgs e)
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = folder,
+                UseShellExecute = true
+            });
         }
     }
 }

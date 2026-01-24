@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:soundboard"
         mc:Ignorable="d"
-        Title="Soundboard" Height="580" Width="800" ResizeMode="NoResize">
+        Title="Soundboard" Height="590" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="pack://application:,,,/Assets/icon.ico">
     <Grid Background="#FF8BA5B8">
         <StackPanel>
             <StackPanel Background="#FF2470FF" Height="100" Orientation="Horizontal">
                 <Label Content="made by Max" FontSize="15" Width="80" FontFamily="Bahnschrift Condensed"/>
-                <Label x:Name="LabelHeading" FontSize="45" Height="100" VerticalContentAlignment="Center" Content="Soundboard" HorizontalContentAlignment="Center" Width="640" FontFamily="Bahnschrift Condensed"/>
+                <Label x:Name="LabelHeading" FontSize="45" Height="100" VerticalContentAlignment="Center" Content="2AHIF-Soundboard" HorizontalContentAlignment="Center" Width="640" FontFamily="Bahnschrift Condensed"/>
                 <Label x:Name="LabelInfo" PreviewMouseDown="LabelInfo_PreviewMouseDown" MouseLeave="LabelInfo_MouseLeave" MouseEnter="LabelInfo_MouseEnter" Margin="20,0,0,0" Content="ⓘ" FontSize="45" VerticalContentAlignment="Bottom" Foreground="Black"/>
             </StackPanel>
             
@@ -18,7 +18,10 @@
                 <Canvas Background="#FF2470FF" x:Name="CanvasMain" Width="800"/>
             </ScrollViewer>
             <StackPanel x:Name="StackPanelMenu" Orientation="Horizontal">
-                <Button x:Name="ButtonSelect" Background="#FF2470FF" Content="Select File-Folder" Click="ButtonSelect_Click" Width="100" Height="25" Margin="5,10,0,0"/>
+                <StackPanel>
+                    <Button x:Name="ButtonSelect" Background="#FF2470FF" Content="Select File-Folder" Click="ButtonSelect_Click" Width="100" Height="25" Margin="5,10,0,0"/>
+                    <Button x:Name="ButtonOpen" Background="#FF2470FF" Content="Open File-Folder" Click="ButtonOpen_Click" Width="100" Height="25" Margin="5,10,0,0"/>
+                </StackPanel>
                 <Button x:Name="ButtonBack" Content="◁" Width="50" Background="#FF2470FF" Height="50" FontSize="20" Margin="210,10,0,0" Click="ButtonBack_Click"/>
                 <Button x:Name="ButtonStop" Content="▶️" Click="ButtonStop_Click" Background="#FF2470FF" FontSize="30" Width="50" Height="50" Margin="5,10,0,0"/>
                 <Button x:Name="ButtonFront" Content="▷" Width="50" Height="50" Background="#FF2470FF" FontSize="20" Margin="5,10,0,0" Click="ButtonFront_Click"/>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:soundboard"
         mc:Ignorable="d"
-        Title="Info" Height="200" Width="600">
+        Title="Info" Height="425" Width="600" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" Icon="pack://application:,,,/Assets/icon.ico">
     <Canvas Background="#FF8BA5B8">
         <TextBlock Canvas.Left="34" Canvas.Top="34" FontSize="20">
             To add new sounds to your soundboard, just paste your
@@ -14,6 +14,37 @@
             <LineBreak/>
             directory with the *select File-Folder* button.
         </TextBlock>
+        <Button x:Name="ButtonOpenFiles" Content="Open File-Directory" Canvas.Left="95" Canvas.Top="127" Height="42" Width="200" HorizontalAlignment="Left" VerticalAlignment="Center" Click="ButtonOpenFiles_Click"/>
+        <Button x:Name="ButtonReturn" Content="Back" Canvas.Left="300" Canvas.Top="127" Height="42" Width="200" HorizontalAlignment="Left" VerticalAlignment="Top" Click="ButtonReturn_Click"/>
+        <Rectangle Height="19" Stroke="#FF2470FF" Fill="#FF2470FF" Canvas.Top="184" Width="600" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock Canvas.Left="81" Canvas.Top="224" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top">
+            Primary author:
+            <LineBreak/>
+            - Max [2ahif, 2025/26]: 
+            <LineBreak/>
+            -- (github.com/potexxi)
+            <LineBreak/>
+            <LineBreak/>
+            Co-creators/ contributors:
+            <LineBreak/>
+            - Karim [2ahif, 2025/26]
+            <LineBreak/>
+            -- (github.com/K-Debbabi)
+        </TextBlock>
+
+        <TextBlock Canvas.Left="310" Canvas.Top="234" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Top">
+            Copyright (c) Maximilian Schreiter
+            <LineBreak/>
+            All rights reserved.
+            <LineBreak/>
+            <LineBreak/>
+            <LineBreak/>
+            Do not use for commercial without
+            <LineBreak/>
+            permission.
+        </TextBlock>
+        <Rectangle Height="160" Canvas.Left="45" Stroke="Gray" Canvas.Top="214" Width="250"/>
+        <Rectangle Height="160" Canvas.Left="300" Stroke="Gray" Canvas.Top="214" Width="250" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
 
     </Canvas>
