@@ -5,13 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:soundboard"
         mc:Ignorable="d"
-        Title="Soundboard" Height="590" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="pack://application:,,,/Assets/icon.ico">
+        Title="Soundboard" Height="730" Width="800" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="pack://application:,,,/Assets/icon.ico">
     <Grid Background="#FF8BA5B8">
         <StackPanel>
             <StackPanel Background="#FF2470FF" Height="100" Orientation="Horizontal">
                 <Label Content="made by Max" FontSize="15" Width="80" FontFamily="Bahnschrift Condensed"/>
                 <Label x:Name="LabelHeading" FontSize="45" Height="100" VerticalContentAlignment="Center" Content="2AHIF-Soundboard" HorizontalContentAlignment="Center" Width="640" FontFamily="Bahnschrift Condensed"/>
                 <Label x:Name="LabelInfo" PreviewMouseDown="LabelInfo_PreviewMouseDown" MouseLeave="LabelInfo_MouseLeave" MouseEnter="LabelInfo_MouseEnter" Margin="20,0,0,0" Content="ⓘ" FontSize="45" VerticalContentAlignment="Bottom" Foreground="Black"/>
+            </StackPanel>
+
+            <Rectangle Width="800" Height="25"/>
+
+            <StackPanel Background="#FF2470FF" Height="120">
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="LabelMP4" FontFamily="Bahnschrift Contented" FontSize="13" Margin="2,5,0,0" Content="MP4-file:     "/>
+                    <TextBox x:Name="TextBoxMP4" Margin="0,5,0,0" TextWrapping="Wrap" Text="" Width="660" />
+                    <Button x:Name="ButtonSelectFile" Content="..." Width="20" Margin="4,4,0,0" Click="ButtonSelectFile_Click"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label x:Name="LabelFileName" FontFamily="Bahnschrift Contented" FontSize="13" Margin="0,5,0,0" Content="File-Name:  "/>
+                    <TextBox x:Name="TextBoxFileName" Margin="0,5,0,0" TextWrapping="Wrap" Text="" Width="660" />
+                </StackPanel>
+                <Button x:Name="ButtonOK" Width="75" Height="30" Margin="0,5,0,0" Background="#FF8BA5B8" Content="Convert" Click="ButtonOK_Click"/>
+                <Label x:Name="LabelStatus" Content="Select a MP4-file and enter a file-name, to convert a MP4-file to MP3. It automatically adds to your soundboard." FontFamily="Bahnschrift Contented" FontSize="13" Width="800" HorizontalContentAlignment="Center"/>
             </StackPanel>
             
             <ScrollViewer Margin="0,20,0,0" x:Name="ScrollViewer" VerticalScrollBarVisibility="Visible" Width="764" MinHeight="340" Height="348">

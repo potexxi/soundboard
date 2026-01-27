@@ -1,4 +1,6 @@
-﻿using Microsoft.Win32;
+﻿using MediaToolkit;
+using MediaToolkit.Model;
+using Microsoft.Win32;
 using System.Diagnostics;
 using System.Diagnostics.Metrics;
 using System.IO;
@@ -243,6 +245,58 @@ namespace soundboard
                 FileName = folder,
                 UseShellExecute = true
             });
+        }
+
+        private void ButtonOK_Click(object sender, RoutedEventArgs e)
+        {
+            if (TextBoxFileName.Text == "" || TextBoxMP4.Text == "")
+            {
+                MessageBox.Show("Select a valid mp4-file and enter a file-name for the mp3 file.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            try
+            {
+               
+                string path = System.IO.Path.Combine(folder, TextBoxMP4.Text);
+
+                var inputFile = new MediaFile { Filename = path };
+                var outputFile = new MediaFile { Filename = folder + $@"\\{TextBoxFileName.Text}.mp3" };
+
+                using (var engine = new Engine())
+                {
+                    engine.Convert(inputFile, outputFile);
+                }
+
+                TextBoxFileName.Text = "";
+                TextBoxMP4.Text = "";
+                changes = true;
+                ReloadSongs(null, null);
+            }
+            catch
+            {
+                MessageBox.Show("Something went wrong. Try again.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            
+        }
+
+        private void ButtonSelectFile_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog
+            {
+                Title = "Select MP4-file",
+                Filter = "MP4 Dateien (*.mp4)|*.mp4",
+                Multiselect = false
+            };
+
+            if (dialog.ShowDialog() == true)
+            {
+                string selectedFile = dialog.FileName;
+
+                TextBoxMP4.Text = selectedFile;
+
+            }
         }
     }
 }

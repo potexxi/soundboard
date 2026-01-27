@@ -25,6 +25,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediaToolkit" Version="1.1.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Assets\icon.ico">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
