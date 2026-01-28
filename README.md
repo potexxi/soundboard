@@ -5,6 +5,7 @@ A small soundboard application, to play sounds or songs.
   + nice and clean interface
   + add own .mp3-files
   + select a .mp4-file and convert it direcly into the soundboard
+  + search function, to search for specific sounds
 
 # Authors
   + [@potexxi](https://www.github.com/potexxi)
@@ -13,6 +14,3 @@ A small soundboard application, to play sounds or songs.
 # Screenshots
 
 <img width="972" height="932" alt="image" src="https://github.com/user-attachments/assets/c31302fd-b4b8-4264-a0bd-f65b7a99b1af" />
-
-
-
