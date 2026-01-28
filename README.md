@@ -12,6 +12,7 @@ A small soundboard application, to play sounds or songs.
 
 # Screenshots
 
-<img width="979" height="895" alt="image" src="https://github.com/user-attachments/assets/fd23be97-97a0-4ea7-a680-e956c22fa9d3" />
+<img width="972" height="932" alt="image" src="https://github.com/user-attachments/assets/c31302fd-b4b8-4264-a0bd-f65b7a99b1af" />
+
 
 
