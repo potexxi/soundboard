@@ -27,16 +27,17 @@ namespace soundboard
     public partial class MainWindow : Window
     {
         WindowsMediaPlayer player = new WindowsMediaPlayer();
-        private DispatcherTimer timer = new DispatcherTimer();
-        int selectedSong = -1;
-        List<string> songs = new List<string>();
-        List<Button> buttons = new List<Button>();
-        bool playing = false;
-        string folder = System.IO.Path.Combine(
+        DispatcherTimer timer = new DispatcherTimer();
+        private int selectedSong = -1;
+        private List<string> songs = new List<string>();
+        private List<Button> buttons = new List<Button>();
+        private bool playing = false;
+        private string folder = System.IO.Path.Combine(
             AppContext.BaseDirectory,
             "mp3-files"
         );
-        bool changes = true;
+        private bool changes = true;
+        private string search = "";
 
         public MainWindow()
         {
@@ -63,7 +64,7 @@ namespace soundboard
 
         private void ReloadSongs(object? sender, EventArgs? e)
         {
-            if(player.playState == WMPPlayState.wmppsStopped && selectedSong != -1)
+            if (player.playState == WMPPlayState.wmppsStopped && selectedSong != -1)
             {
                 buttons[selectedSong].Background = Brushes.White;
                 ButtonStop.Content = "▶️";
@@ -78,14 +79,26 @@ namespace soundboard
             songs.Clear();
             foreach (string s in songsArray)
             {
-                songs.Add(s);
+                if (search != "" && s.ToLower().Contains(search))
+                    songs.Add(s);
+                else if (search == "")
+                    songs.Add(s);
             }
-            try
-            {
-                CanvasMain.Children.Clear();
-            }
-            catch { }
+
+            CanvasMain.Children.Clear();
             buttons.Clear();
+            if(songs.Count() == 0)
+            {
+                Label label = new Label();
+                label.Content = "Nothing found here 📂🔍";
+                label.Width = 764;
+                label.FontFamily = new FontFamily("Bahnschrift Contented");
+                label.HorizontalContentAlignment = HorizontalAlignment.Center;
+                label.FontSize = 20;
+                CanvasMain.Children.Add(label);
+                Canvas.SetTop(label, 5);
+                return;
+            }
             int row = 0;
             int counter = 0;
             foreach (string song in songs)
@@ -107,17 +120,26 @@ namespace soundboard
                 buttons.Add(button);
                 counter++;
             }
-            if (selectedSong != -1)
-                buttons[selectedSong].Background = Brushes.Coral;
+            try
+            {
+                if (selectedSong != -1)
+                    buttons[selectedSong].Background = Brushes.Coral;
+            }
+            catch { }
             CanvasMain.Height = Math.Ceiling(songs.Count / 4.0) * 100;
+            if (CanvasMain.Height < 348)
+                CanvasMain.Height = 348;
             changes = false;
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            if (selectedSong != -1)
-                buttons[selectedSong].Background = Brushes.White;
+            try
+            {
+                if (selectedSong != -1)
+                    buttons[selectedSong].Background = Brushes.White;
+            }
+            catch { }
             Button button = (Button)sender;
             int counter = 0;
             int button_number = -1;
@@ -297,6 +319,16 @@ namespace soundboard
                 TextBoxMP4.Text = selectedFile;
 
             }
+        }
+
+        private void TextBoxSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (selectedSong != -1)
+                buttons[selectedSong].Background = Brushes.White;
+            selectedSong = -1;
+            search = TextBoxSearch.Text.ToLower();
+            changes = true;
+            ReloadSongs(null, null);
         }
     }
 }
